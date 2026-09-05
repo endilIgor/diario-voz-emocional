@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Voz Clara — Protótipo</title>
+  <style>
+    :root {
+      --bg: #f7f1ea;
+      --card: #fffaf6;
+      --text: #25212b;
+      --muted: #766e7d;
+      --purple: #7c5cff;
+      --purple-2: #b9a7ff;
+      --lilac: #e8dfff;
+      --green: #88bfa3;
+      --amber: #e7b86a;
+      --line: rgba(37,33,43,.1);
+      --shadow: 0 24px 70px rgba(80, 59, 42, .16);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(124,92,255,.18), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(136,191,163,.22), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .phone {
+      width: min(390px, 100vw);
+      min-height: 780px;
+      border-radius: 44px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,250,246,.94));
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.8);
+    }
+
+    .screen {
+      min-height: 744px;
+      border-radius: 32px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,250,246,.72);
+      border: 1px solid rgba(255,255,255,.9);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
+
+    .privacy {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(136,191,163,.18);
+      color: #49765e;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.02;
+      letter-spacing: -.04em;
+    }
+
+    .subtitle {
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .record-zone {
+      height: 310px;
+      display: grid;
+      place-items: center;
+      margin: 14px 0 8px;
+      position: relative;
+    }
+
+    .orb, .orb::before, .orb::after {
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .orb {
+      width: 190px;
+      height: 190px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      color: white;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      background: linear-gradient(145deg, var(--purple), var(--purple-2));
+      box-shadow: 0 20px 45px rgba(124,92,255,.34), inset 0 1px 2px rgba(255,255,255,.5);
+      z-index: 2;
+    }
+
+    .orb::before {
+      content: "";
+      inset: -24px;
+      background: rgba(124,92,255,.12);
+      animation: pulse 2.8s infinite;
+      z-index: -1;
+    }
+
+    .orb::after {
+      content: "🎙";
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      top: 38px;
+      left: 69px;
+      background: rgba(255,255,255,.22);
+      font-size: 26px;
+    }
+
+    .orb span { transform: translateY(34px); }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(.92); opacity: .7; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .hint {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: -18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(80,59,42,.08);
+    }
+
+    .card + .card { margin-top: 12px; }
+
+    .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .last-title {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .last-copy {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .streak {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--lilac);
+      color: var(--purple);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .result-preview {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: start;
+      width: fit-content;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(231,184,106,.18);
+      color: #91652a;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .question {
+      font-size: 19px;
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin: 0;
+    }
+
+    .tabs {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: rgba(255,255,255,.7);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 24px;
+      padding: 8px;
+    }
+
+    .tab {
+      text-align: center;
+      padding: 10px 6px;
+      border-radius: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tab.active {
+      background: var(--text);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <main class="phone" aria-label="Protótipo mobile do app Voz Clara">
+    <section class="screen">
+      <div class="topbar">
+        <strong>Voz Clara</strong>
+        <span class="privacy">Privado</span>
+      </div>
+
+      <h1>Como foi seu dia?</h1>
+      <p class="subtitle">Grave um check-in rápido. O app organiza seu relato em uma reflexão simples e acolhedora.</p>
+
+      <div class="record-zone">
+        <button class="orb" type="button" aria-label="Gravar check-in"><span>Gravar</span></button>
+      </div>
+      <p class="hint">Fale livremente por até 3 minutos. Ninguém vai julgar.</p>
+
+      <div class="card">
+        <div class="label">Último check-in</div>
+        <p class="last-title">Ontem você pareceu mais tranquilo</p>
+        <p class="last-copy">Seu relato mencionou descanso, família e uma sensação maior de presença.</p>
+        <div class="streak" aria-label="Sequência de check-ins">
+          <span class="dot">S</span><span class="dot">T</span><span class="dot">Q</span><span class="dot">Q</span><span class="dot">🔥</span>
+        </div>
+      </div>
+
+      <div class="card result-preview">
+        <div class="label">Exemplo de insight</div>
+        <span class="pill">● Levemente sobrecarregado</span>
+        <p class="question">O que você pode tornar 10% mais leve amanhã?</p>
+      </div>
+
+      <nav class="tabs" aria-label="Navegação principal">
+        <div class="tab active">Hoje</div>
+        <div class="tab">Histórico</div>
+        <div class="tab">Tendências</div>
+      </nav>
+    </section>
+  </main>
+</body>
+</html>
