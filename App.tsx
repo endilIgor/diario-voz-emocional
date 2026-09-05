@@ -135,7 +135,11 @@ export default function App() {
         </Text>
 
         <TouchableOpacity style={styles.recordButton} onPress={startRecording} activeOpacity={0.86}>
-          <Text style={styles.mic}>🎙</Text>
+          <View style={styles.micIcon}>
+            <View style={styles.micCapsule} />
+            <View style={styles.micStem} />
+            <View style={styles.micBase} />
+          </View>
           <Text style={styles.recordText}>Gravar</Text>
         </TouchableOpacity>
         <Text style={styles.hint}>Fale livremente por até 3 minutos. Ninguém vai julgar.</Text>
@@ -339,7 +343,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: spacing.lg,
-    paddingBottom: 110,
+    paddingBottom: 150,
   },
   centerContent: {
     flexGrow: 1,
@@ -401,9 +405,31 @@ const styles = StyleSheet.create({
     shadowRadius: 24,
     elevation: 8,
   },
-  mic: {
-    fontSize: 34,
+  micIcon: {
+    width: 42,
+    height: 42,
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: spacing.sm,
+  },
+  micCapsule: {
+    width: 18,
+    height: 26,
+    borderRadius: 9,
+    borderWidth: 3,
+    borderColor: '#FFFFFF',
+  },
+  micStem: {
+    width: 3,
+    height: 10,
+    backgroundColor: '#FFFFFF',
+    marginTop: -1,
+  },
+  micBase: {
+    width: 24,
+    height: 3,
+    borderRadius: 999,
+    backgroundColor: '#FFFFFF',
   },
   recordText: {
     color: '#FFFFFF',
