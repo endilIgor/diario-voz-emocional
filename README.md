@@ -44,3 +44,13 @@ Se for usada uma API de IA real para gerar a reflexão final, aí sim pode dizer
 ## Decisão principal
 
 Começar simples, bonito e confiável. O produto não deve parecer terapia clínica nem prometer diagnóstico. A promessa é ajudar o usuário a criar um ritual diário de autoconsciência.
+
+## Implementação Android
+
+- Reconhecimento de voz em pt-BR pelo serviço disponível no aparelho. O serviço do sistema pode transmitir áudio para processamento; há alternativa de digitar o relato. Não funciona no Expo Go: requer build nativo.
+- Gravação de áudio para reprodução, quando o aparelho suporta persistência durante o reconhecimento (Android 13+); nos demais aparelhos, o diário salva a transcrição sem arquivo de áudio.
+- As entradas e gravações são guardadas no dispositivo; há exclusão por entrada ou total. Sem sincronização ou conta de usuário. A análise emocional é baseada em regras, não oferece diagnóstico.
+- Sem chave de RevenueCat, todos os check-ins são gratuitos e o paywall não aparece. Para ativar compras reais, configurar Google Play Billing e RevenueCat e fornecer `EXPO_PUBLIC_REVENUECAT_ANDROID_KEY` no ambiente EAS. O entitlement esperado é `premium`; preços são lidos da loja.
+- A política de privacidade pública é configurada via `EXPO_PUBLIC_PRIVACY_POLICY_URL`; as páginas em `docs/privacy.html` e `docs/terms.html` são **rascunhos com campos pendentes**, não devem ser publicadas assim.
+
+Ver `docs/PLAY-STORE.md` para as ações necessárias antes do primeiro envio à Play Store. Verificação de código: `npm run test -- --runInBand`, `npm run lint`, `npm run typecheck` e `npx expo-doctor`.

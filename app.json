@@ -1,8 +1,18 @@
 {
   "expo": {
-    "name": "Diário por Voz Emocional",
+    "name": "Voz Clara",
     "slug": "diario-voz-emocional",
     "version": "1.0.0",
+    "plugins": [
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Permitir que o Voz Clara ouça sua voz para transcrever seu diário.",
+          "speechRecognitionPermission": "Permitir que o Voz Clara transcreva seus relatos de voz."
+        }
+      ],
+      "expo-asset"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -10,6 +20,15 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.endiligor.vozclara",
+      "versionCode": 1,
+      "allowBackup": false,
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.VIBRATE"
+      ],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",

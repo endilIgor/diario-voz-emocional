@@ -11,6 +11,7 @@ const POSITIVE_WORDS = [
   'aliviado',
   'melhor',
   'leve',
+  'ânimo',
 ];
 
 const NEGATIVE_WORDS = [
@@ -52,7 +53,13 @@ function normalize(text: string): string {
 
 function countMatches(words: string, list: string[]): number {
   return list.reduce((count, word) => {
-    const pattern = new RegExp(`\\b${normalize(word)}\\b`, 'g');
+    // Plain \b is ASCII-only, so it fails to anchor on words that start or
+    // end with an accented letter (common in Portuguese, e.g. "ânimo").
+    // Unicode-aware lookaround against \p{L}/\p{N} fixes that.
+    const pattern = new RegExp(
+      `(?<![\\p{L}\\p{N}_])${normalize(word)}(?![\\p{L}\\p{N}_])`,
+      'gu'
+    );
     const matches = words.match(pattern);
     return count + (matches ? matches.length : 0);
   }, 0);

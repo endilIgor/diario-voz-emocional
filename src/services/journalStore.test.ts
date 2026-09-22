@@ -67,4 +67,14 @@ describe('journalStore', () => {
 
     expect(entries).toEqual([]);
   });
+
+  it('remove apenas a entrada solicitada', async () => {
+    const store = createJournalStore(createInMemoryStorage());
+    await store.addEntry(makeEntry({ id: 'a' }));
+    await store.addEntry(makeEntry({ id: 'b' }));
+
+    await store.removeEntry('a');
+
+    expect((await store.getEntries()).map((entry) => entry.id)).toEqual(['b']);
+  });
 });

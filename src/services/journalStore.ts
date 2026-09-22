@@ -6,6 +6,7 @@ const STORAGE_KEY = '@diario-voz-emocional/journal-entries';
 export type JournalStore = {
   getEntries(): Promise<JournalEntry[]>;
   addEntry(entry: JournalEntry): Promise<void>;
+  removeEntry(id: string): Promise<void>;
   clear(): Promise<void>;
 };
 
@@ -21,6 +22,10 @@ export function createJournalStore(storage: StorageAdapter): JournalStore {
       const entries = await this.getEntries();
       const updated = [entry, ...entries];
       await storage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    },
+    async removeEntry(id) {
+      const entries = await this.getEntries();
+      await storage.setItem(STORAGE_KEY, JSON.stringify(entries.filter((entry) => entry.id !== id)));
     },
 
     async clear() {

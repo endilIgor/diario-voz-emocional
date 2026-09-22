@@ -54,6 +54,13 @@ describe('analyzeTranscript', () => {
     expect(result.mood).toBe('ansioso');
   });
 
+  it('detecta palavras positivas que começam com letra acentuada', () => {
+    const result = analyzeTranscript('Hoje acordei com muito ânimo e vontade de fazer tudo.');
+
+    expect(result.mood).toBe('tranquilo');
+    expect(result.score).toBeGreaterThan(5);
+  });
+
   it('nunca usa linguagem de diagnóstico clínico', () => {
     const samples = [
       'Estou muito cansado, triste e ansioso, sinto raiva e medo o tempo todo.',
